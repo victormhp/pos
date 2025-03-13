@@ -1,7 +1,7 @@
-import { NavMenu } from "@/components/template"
+import { NavMenu } from '@/components/template';
 
 interface BaseLayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 export function BaseLayout({ children }: BaseLayoutProps) {
   return (
@@ -9,5 +9,5 @@ export function BaseLayout({ children }: BaseLayoutProps) {
       <NavMenu />
       <main className="p-8">{children}</main>
     </>
-  )
+  );
 }

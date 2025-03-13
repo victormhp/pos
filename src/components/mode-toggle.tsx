@@ -1,13 +1,13 @@
-import { Moon, Sun } from "lucide-react"
-import { Button } from "./ui/button"
-import { useTheme } from "./theme-provider.tsx"
+import { Moon, Sun } from 'lucide-react';
+import { Button } from './ui/button';
+import { useTheme } from './theme-provider.tsx';
 
 export function ModeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light")
-  }
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
     <Button variant="ghost" size="icon" onClick={toggleTheme}>
@@ -15,5 +15,5 @@ export function ModeToggle() {
       <Moon className="absolute size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
       <span className="sr-only">Cambiar tema</span>
     </Button>
-  )
+  );
 }

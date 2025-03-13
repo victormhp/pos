@@ -1,34 +1,34 @@
-import "./styles/global.css"
-import { StrictMode } from "react"
-import ReactDOM from "react-dom/client"
-import { RouterProvider, createRouter } from "@tanstack/react-router"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ThemeProvider } from "@/components/theme-provider"
-import { routeTree } from "./routeTree.gen.ts"
+import './styles/global.css';
+import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from '@/components/theme-provider';
+import { routeTree } from './routeTree.gen.ts';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const router = createRouter({
   routeTree,
-  defaultPreload: "intent",
+  defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,
   context: {
-    queryClient
-  }
-})
+    queryClient,
+  },
+});
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router
+    router: typeof router;
   }
 }
 
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
-const rootElement = document.getElementById("root")!
+const rootElement = document.getElementById('root')!;
 
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement)
+  const root = ReactDOM.createRoot(rootElement);
 
   root.render(
     <StrictMode>
@@ -37,6 +37,6 @@ if (!rootElement.innerHTML) {
           <RouterProvider router={router} />
         </ThemeProvider>
       </QueryClientProvider>
-    </StrictMode>
-  )
+    </StrictMode>,
+  );
 }
