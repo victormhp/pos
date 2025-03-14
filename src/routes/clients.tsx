@@ -1,3 +1,4 @@
+import { ClientsTable } from '@/components/clients';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/clients')({
@@ -5,5 +6,5 @@ export const Route = createFileRoute('/clients')({
 });
 
 function RouteComponent() {
-  return <div>Hello clients!</div>;
+  return <ClientsTable />;
 }
