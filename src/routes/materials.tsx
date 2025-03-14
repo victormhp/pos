@@ -6,9 +6,5 @@ export const Route = createFileRoute('/materials')({
 });
 
 function Materials() {
-  return (
-    <div>
-      <MaterialsTable />
-    </div>
-  );
+  return <MaterialsTable />;
 }

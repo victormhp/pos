@@ -51,13 +51,6 @@ export function NavMenu() {
         <ul className="flex items-center gap-12">{navList}</ul>
         <div className="flex items-center gap-4">
           <ModeToggle />
-          <a
-            href="http://localhost:8090/_/"
-            className={cn(buttonVariants({ variant: 'ghost' }), 'size-9 p-0')}
-          >
-            <File className="size-5" />
-            <span className="sr-only">Pocketbase</span>
-          </a>
           <Link to="/" className={cn(buttonVariants({ variant: 'ghost' }), 'size-9 p-0')}>
             <Settings className="size-5" />
             <span className="sr-only">Configuracion</span>
