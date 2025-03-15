@@ -1,4 +1,5 @@
 use std::sync::{Arc, Mutex};
+use std::net::TcpStream;
 use tauri_plugin_shell::ShellExt;
 
 #[tauri::command]
@@ -16,14 +17,19 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init());
 
     let app = builder.setup(move |app| {
-        let pocketbase_cmd =
+        let pocketbase_running = TcpStream::connect("127.0.0.1:8090").is_ok();
+
+        if !pocketbase_running {
+            let pocketbase_cmd =
             app.shell()
                 .sidecar("pocketbase")
                 .unwrap()
                 .args(["serve", "--dir", "./db/pb_data"]);
 
-        let (_, child) = pocketbase_cmd.spawn().expect("Failed to spawn pocketbase");
-        *child_process.lock().unwrap() = Some(child);
+            let (_, child) = pocketbase_cmd.spawn().expect("Failed to spawn pocketbase");
+            *child_process.lock().unwrap() = Some(child);
+        }
+
         Ok(())
     });
 

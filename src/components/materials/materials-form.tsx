@@ -1,7 +1,7 @@
 export function MaterialsForm() {
   return (
     <div>
-      <p>hola</p>
+      <h1>Anadir Material</h1>
     </div>
   );
 }
