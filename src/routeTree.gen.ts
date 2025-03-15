@@ -11,42 +11,56 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SalesImport } from './routes/sales'
-import { Route as OrdersImport } from './routes/orders'
-import { Route as MaterialsImport } from './routes/materials'
-import { Route as ClientsImport } from './routes/clients'
 import { Route as IndexImport } from './routes/index'
+import { Route as SalesIndexImport } from './routes/sales/index'
+import { Route as OrdersIndexImport } from './routes/orders/index'
+import { Route as MaterialsIndexImport } from './routes/materials/index'
+import { Route as ClientsIndexImport } from './routes/clients/index'
+import { Route as MaterialsAddRouteImport } from './routes/materials/add.route'
+import { Route as MaterialsAddIndexImport } from './routes/materials/add.index'
 
 // Create/Update Routes
-
-const SalesRoute = SalesImport.update({
-  id: '/sales',
-  path: '/sales',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const OrdersRoute = OrdersImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const MaterialsRoute = MaterialsImport.update({
-  id: '/materials',
-  path: '/materials',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClientsRoute = ClientsImport.update({
-  id: '/clients',
-  path: '/clients',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const SalesIndexRoute = SalesIndexImport.update({
+  id: '/sales/',
+  path: '/sales/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OrdersIndexRoute = OrdersIndexImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MaterialsIndexRoute = MaterialsIndexImport.update({
+  id: '/materials/',
+  path: '/materials/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ClientsIndexRoute = ClientsIndexImport.update({
+  id: '/clients/',
+  path: '/clients/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MaterialsAddRouteRoute = MaterialsAddRouteImport.update({
+  id: '/materials/add',
+  path: '/materials/add',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MaterialsAddIndexRoute = MaterialsAddIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MaterialsAddRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -60,87 +74,134 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/clients': {
-      id: '/clients'
+    '/materials/add': {
+      id: '/materials/add'
+      path: '/materials/add'
+      fullPath: '/materials/add'
+      preLoaderRoute: typeof MaterialsAddRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/clients/': {
+      id: '/clients/'
       path: '/clients'
       fullPath: '/clients'
-      preLoaderRoute: typeof ClientsImport
+      preLoaderRoute: typeof ClientsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/materials': {
-      id: '/materials'
+    '/materials/': {
+      id: '/materials/'
       path: '/materials'
       fullPath: '/materials'
-      preLoaderRoute: typeof MaterialsImport
+      preLoaderRoute: typeof MaterialsIndexImport
       parentRoute: typeof rootRoute
     }
-    '/orders': {
-      id: '/orders'
+    '/orders/': {
+      id: '/orders/'
       path: '/orders'
       fullPath: '/orders'
-      preLoaderRoute: typeof OrdersImport
+      preLoaderRoute: typeof OrdersIndexImport
       parentRoute: typeof rootRoute
     }
-    '/sales': {
-      id: '/sales'
+    '/sales/': {
+      id: '/sales/'
       path: '/sales'
       fullPath: '/sales'
-      preLoaderRoute: typeof SalesImport
+      preLoaderRoute: typeof SalesIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/materials/add/': {
+      id: '/materials/add/'
+      path: '/'
+      fullPath: '/materials/add/'
+      preLoaderRoute: typeof MaterialsAddIndexImport
+      parentRoute: typeof MaterialsAddRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface MaterialsAddRouteRouteChildren {
+  MaterialsAddIndexRoute: typeof MaterialsAddIndexRoute
+}
+
+const MaterialsAddRouteRouteChildren: MaterialsAddRouteRouteChildren = {
+  MaterialsAddIndexRoute: MaterialsAddIndexRoute,
+}
+
+const MaterialsAddRouteRouteWithChildren =
+  MaterialsAddRouteRoute._addFileChildren(MaterialsAddRouteRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/clients': typeof ClientsRoute
-  '/materials': typeof MaterialsRoute
-  '/orders': typeof OrdersRoute
-  '/sales': typeof SalesRoute
+  '/materials/add': typeof MaterialsAddRouteRouteWithChildren
+  '/clients': typeof ClientsIndexRoute
+  '/materials': typeof MaterialsIndexRoute
+  '/orders': typeof OrdersIndexRoute
+  '/sales': typeof SalesIndexRoute
+  '/materials/add/': typeof MaterialsAddIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/clients': typeof ClientsRoute
-  '/materials': typeof MaterialsRoute
-  '/orders': typeof OrdersRoute
-  '/sales': typeof SalesRoute
+  '/clients': typeof ClientsIndexRoute
+  '/materials': typeof MaterialsIndexRoute
+  '/orders': typeof OrdersIndexRoute
+  '/sales': typeof SalesIndexRoute
+  '/materials/add': typeof MaterialsAddIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/clients': typeof ClientsRoute
-  '/materials': typeof MaterialsRoute
-  '/orders': typeof OrdersRoute
-  '/sales': typeof SalesRoute
+  '/materials/add': typeof MaterialsAddRouteRouteWithChildren
+  '/clients/': typeof ClientsIndexRoute
+  '/materials/': typeof MaterialsIndexRoute
+  '/orders/': typeof OrdersIndexRoute
+  '/sales/': typeof SalesIndexRoute
+  '/materials/add/': typeof MaterialsAddIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/clients' | '/materials' | '/orders' | '/sales'
+  fullPaths:
+    | '/'
+    | '/materials/add'
+    | '/clients'
+    | '/materials'
+    | '/orders'
+    | '/sales'
+    | '/materials/add/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/clients' | '/materials' | '/orders' | '/sales'
-  id: '__root__' | '/' | '/clients' | '/materials' | '/orders' | '/sales'
+  to: '/' | '/clients' | '/materials' | '/orders' | '/sales' | '/materials/add'
+  id:
+    | '__root__'
+    | '/'
+    | '/materials/add'
+    | '/clients/'
+    | '/materials/'
+    | '/orders/'
+    | '/sales/'
+    | '/materials/add/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ClientsRoute: typeof ClientsRoute
-  MaterialsRoute: typeof MaterialsRoute
-  OrdersRoute: typeof OrdersRoute
-  SalesRoute: typeof SalesRoute
+  MaterialsAddRouteRoute: typeof MaterialsAddRouteRouteWithChildren
+  ClientsIndexRoute: typeof ClientsIndexRoute
+  MaterialsIndexRoute: typeof MaterialsIndexRoute
+  OrdersIndexRoute: typeof OrdersIndexRoute
+  SalesIndexRoute: typeof SalesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ClientsRoute: ClientsRoute,
-  MaterialsRoute: MaterialsRoute,
-  OrdersRoute: OrdersRoute,
-  SalesRoute: SalesRoute,
+  MaterialsAddRouteRoute: MaterialsAddRouteRouteWithChildren,
+  ClientsIndexRoute: ClientsIndexRoute,
+  MaterialsIndexRoute: MaterialsIndexRoute,
+  OrdersIndexRoute: OrdersIndexRoute,
+  SalesIndexRoute: SalesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -154,26 +215,37 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/clients",
-        "/materials",
-        "/orders",
-        "/sales"
+        "/materials/add",
+        "/clients/",
+        "/materials/",
+        "/orders/",
+        "/sales/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/clients": {
-      "filePath": "clients.tsx"
+    "/materials/add": {
+      "filePath": "materials/add.route.tsx",
+      "children": [
+        "/materials/add/"
+      ]
     },
-    "/materials": {
-      "filePath": "materials.tsx"
+    "/clients/": {
+      "filePath": "clients/index.tsx"
     },
-    "/orders": {
-      "filePath": "orders.tsx"
+    "/materials/": {
+      "filePath": "materials/index.tsx"
     },
-    "/sales": {
-      "filePath": "sales.tsx"
+    "/orders/": {
+      "filePath": "orders/index.tsx"
+    },
+    "/sales/": {
+      "filePath": "sales/index.tsx"
+    },
+    "/materials/add/": {
+      "filePath": "materials/add.index.tsx",
+      "parent": "/materials/add"
     }
   }
 }

@@ -26,8 +26,12 @@ export function NavMain({ items }: NavMainProps) {
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild size="lg" tooltip={item.title}>
-              <Link to={item.url} activeProps={{ className: 'bg-sidebar-border hover:bg-none' }}>
+            <SidebarMenuButton asChild tooltip={item.title}>
+              <Link
+                to={item.url}
+                className="hover:bg-sidebar-border"
+                activeProps={{ className: 'bg-sidebar-border hover:bg-none' }}
+              >
                 <item.icon />
                 <span>{item.title}</span>
               </Link>

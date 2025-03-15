@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Home, List, Package, ShoppingCart, UserRound } from 'lucide-react';
-import { NavMain } from '@/components/template/nav-main';
+import { NavHeader, NavMain, NavFooter } from './';
 import {
   Sidebar,
   SidebarContent,
@@ -11,8 +11,8 @@ import {
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
+    name: 'deivid',
+    email: 'deivid@gmail.com',
     avatar: '/avatars/shadcn.jpg',
   },
   navMain: [
@@ -45,14 +45,18 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader>
+        <NavHeader />
+      </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter></SidebarFooter>
+      <SidebarFooter>
+        <NavFooter user={data.user} />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

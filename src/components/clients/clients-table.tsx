@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { DataTable, InputSearch } from '@/components/ui';
+import { Button, DataTable, InputSearch } from '@/components/ui';
+import { debounce } from '@/lib/utils';
 import { clientColumns } from './clients.model';
 import { getClients } from './clients.handlers';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
+import { Plus } from 'lucide-react';
 
 export function ClientsTable() {
   const [searchFilter, setSearchFilter] = React.useState('');
@@ -13,10 +16,12 @@ export function ClientsTable() {
     placeholderData: keepPreviousData,
   });
 
-  const searchMaterials = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const searchClients = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     setSearchFilter(target.value);
   };
+
+  const debounceSearchClients = debounce(searchClients);
 
   const filteredMaterials = React.useMemo(() => {
     const filtered = clients?.filter(({ name }) => {
@@ -29,7 +34,14 @@ export function ClientsTable() {
 
   return (
     <section className="space-y-8">
-      <InputSearch placeholder="Buscar cliente..." onChange={searchMaterials} />
+      <div className="flex items-center justify-between gap-4">
+        <InputSearch placeholder="Buscar cliente..." onChange={debounceSearchClients} />
+        <Button asChild size="search">
+          <Link to="/">
+            <Plus className="size-5" />
+          </Link>
+        </Button>
+      </div>
       <DataTable columns={clientColumns} data={filteredMaterials ?? []} />
     </section>
   );
