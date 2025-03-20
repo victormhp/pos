@@ -27,7 +27,8 @@
       "correctness": {
         "noUnusedVariables": "info",
         "noUnusedFunctionParameters": "info",
-        "noUnusedImports": "warn"
+        "noUnusedImports": "warn",
+        "noChildrenProp": "off"
       }
     }
   },
