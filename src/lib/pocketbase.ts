@@ -5,9 +5,9 @@ export const pb = new PocketBase(dbURL);
 
 const superuser = import.meta.env.VITE_SUPERUSER;
 const superuserPass = import.meta.env.VITE_SUPERUSER_PASSWORD;
-await pb.collection('_superusers').authWithPassword(superuser, superuserPass);
 
 export async function createBackup(): Promise<void> {
+  await pb.collection('_superusers').authWithPassword(superuser, superuserPass);
   const date = new Date();
   const timestamp = date
     .toLocaleString('es-MX', {

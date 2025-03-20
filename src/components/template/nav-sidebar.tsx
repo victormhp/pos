@@ -33,8 +33,8 @@ const data = {
       icon: List,
     },
     {
-      title: 'Materiales',
-      url: '/materials',
+      title: 'Productos',
+      url: '/products',
       icon: Package,
     },
     {

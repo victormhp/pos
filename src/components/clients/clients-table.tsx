@@ -36,9 +36,10 @@ export function ClientsTable() {
     <section className="space-y-8">
       <div className="flex items-center justify-between gap-4">
         <InputSearch placeholder="Buscar cliente..." onChange={debounceSearchClients} />
-        <Button asChild size="search">
+        <Button asChild size="search" variant="outline">
           <Link to="/">
             <Plus className="size-5" />
+            <span>Añadir cliente</span>
           </Link>
         </Button>
       </div>

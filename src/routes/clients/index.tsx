@@ -1,5 +1,5 @@
 import { ClientsTable } from '@/components/clients';
-import { DashboardHeader } from '@/components/template';
+import { SiteHeader } from '@/components/template';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/clients/')({
@@ -9,7 +9,7 @@ export const Route = createFileRoute('/clients/')({
 function RouteComponent() {
   return (
     <>
-      <DashboardHeader />
+      <SiteHeader title='Clientes' />
       <div className="p-4">
         <ClientsTable />
       </div>

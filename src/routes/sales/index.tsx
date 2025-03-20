@@ -1,4 +1,4 @@
-import { DashboardHeader } from '@/components/template';
+import { SiteHeader } from '@/components/template';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/sales/')({
@@ -8,7 +8,7 @@ export const Route = createFileRoute('/sales/')({
 function RouteComponent() {
   return (
     <>
-      <DashboardHeader />
+      <SiteHeader title='Ventas'/>
       <div className="p-4">hola</div>
     </>
   );

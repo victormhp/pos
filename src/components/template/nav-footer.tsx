@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { Link } from '@tanstack/react-router';
 
 export function NavFooter({
   user,
@@ -78,9 +79,11 @@ export function NavFooter({
                 Tema Oscuro
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Settings />
-                Configuración
+              <DropdownMenuItem asChild>
+                <Link to="/config">
+                  <Settings />
+                  Configuración
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

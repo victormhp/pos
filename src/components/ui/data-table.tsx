@@ -15,9 +15,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   return (
-    <div className="h-full rounded border">
+    <div className="rounded border">
       <Table>
-        <TableHeader>
+        <TableHeader className='bg-muted'>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
