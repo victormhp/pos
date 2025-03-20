@@ -1,4 +1,4 @@
-import { DashboardHeader } from '@/components/template';
+import { SiteHeader } from '@/components/template';
 import { categoriesQueryOptions, ProductsTable } from '@/components/products';
 import { createFileRoute } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -16,7 +16,7 @@ function Products() {
 
   return (
     <>
-      <DashboardHeader title='Productos'/>
+      <SiteHeader title='Productos'/>
       <div className="p-4">
         <ProductsTable categories={categories} />
       </div>
