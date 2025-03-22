@@ -130,14 +130,15 @@ body,
 
 /* Scroll Bar */
 ::-webkit-scrollbar {
+  width: 0.5rem;
   height: 0.35rem;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-border);
+  background-color: var(--color-muted);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-foreground);
+  background-color: var(--color-muted-foreground);
   border-radius: 100vw;
 }
