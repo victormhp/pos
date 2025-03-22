@@ -20,7 +20,7 @@ export function NavigationBlock() {
 
   return (
     <AlertDialog open={status === 'blocked'}>
-      <AlertDialogContent>
+      <AlertDialogContent aria-describedby='Confirmacion de navegacion'>
         <AlertDialogHeader>
           <AlertDialogTitle>¿Estás seguro de que quieres salir?</AlertDialogTitle>
           <AlertDialogDescription>

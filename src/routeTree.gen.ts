@@ -11,18 +11,30 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ProductsImport } from './routes/products'
 import { Route as ConfigImport } from './routes/config'
+import { Route as ClientsImport } from './routes/clients'
 import { Route as IndexImport } from './routes/index'
 import { Route as SalesIndexImport } from './routes/sales/index'
-import { Route as ProductsIndexImport } from './routes/products/index'
 import { Route as OrdersIndexImport } from './routes/orders/index'
-import { Route as ClientsIndexImport } from './routes/clients/index'
 
 // Create/Update Routes
+
+const ProductsRoute = ProductsImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ConfigRoute = ConfigImport.update({
   id: '/config',
   path: '/config',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ClientsRoute = ClientsImport.update({
+  id: '/clients',
+  path: '/clients',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -38,21 +50,9 @@ const SalesIndexRoute = SalesIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ProductsIndexRoute = ProductsIndexImport.update({
-  id: '/products/',
-  path: '/products/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const OrdersIndexRoute = OrdersIndexImport.update({
   id: '/orders/',
   path: '/orders/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClientsIndexRoute = ClientsIndexImport.update({
-  id: '/clients/',
-  path: '/clients/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/clients': {
+      id: '/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof ClientsImport
+      parentRoute: typeof rootRoute
+    }
     '/config': {
       id: '/config'
       path: '/config'
@@ -74,11 +81,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfigImport
       parentRoute: typeof rootRoute
     }
-    '/clients/': {
-      id: '/clients/'
-      path: '/clients'
-      fullPath: '/clients'
-      preLoaderRoute: typeof ClientsIndexImport
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsImport
       parentRoute: typeof rootRoute
     }
     '/orders/': {
@@ -86,13 +93,6 @@ declare module '@tanstack/react-router' {
       path: '/orders'
       fullPath: '/orders'
       preLoaderRoute: typeof OrdersIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/products/': {
-      id: '/products/'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsIndexImport
       parentRoute: typeof rootRoute
     }
     '/sales/': {
@@ -109,63 +109,63 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/clients': typeof ClientsRoute
   '/config': typeof ConfigRoute
-  '/clients': typeof ClientsIndexRoute
+  '/products': typeof ProductsRoute
   '/orders': typeof OrdersIndexRoute
-  '/products': typeof ProductsIndexRoute
   '/sales': typeof SalesIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/clients': typeof ClientsRoute
   '/config': typeof ConfigRoute
-  '/clients': typeof ClientsIndexRoute
+  '/products': typeof ProductsRoute
   '/orders': typeof OrdersIndexRoute
-  '/products': typeof ProductsIndexRoute
   '/sales': typeof SalesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/clients': typeof ClientsRoute
   '/config': typeof ConfigRoute
-  '/clients/': typeof ClientsIndexRoute
+  '/products': typeof ProductsRoute
   '/orders/': typeof OrdersIndexRoute
-  '/products/': typeof ProductsIndexRoute
   '/sales/': typeof SalesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/config' | '/clients' | '/orders' | '/products' | '/sales'
+  fullPaths: '/' | '/clients' | '/config' | '/products' | '/orders' | '/sales'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/config' | '/clients' | '/orders' | '/products' | '/sales'
+  to: '/' | '/clients' | '/config' | '/products' | '/orders' | '/sales'
   id:
     | '__root__'
     | '/'
+    | '/clients'
     | '/config'
-    | '/clients/'
+    | '/products'
     | '/orders/'
-    | '/products/'
     | '/sales/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClientsRoute: typeof ClientsRoute
   ConfigRoute: typeof ConfigRoute
-  ClientsIndexRoute: typeof ClientsIndexRoute
+  ProductsRoute: typeof ProductsRoute
   OrdersIndexRoute: typeof OrdersIndexRoute
-  ProductsIndexRoute: typeof ProductsIndexRoute
   SalesIndexRoute: typeof SalesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClientsRoute: ClientsRoute,
   ConfigRoute: ConfigRoute,
-  ClientsIndexRoute: ClientsIndexRoute,
+  ProductsRoute: ProductsRoute,
   OrdersIndexRoute: OrdersIndexRoute,
-  ProductsIndexRoute: ProductsIndexRoute,
   SalesIndexRoute: SalesIndexRoute,
 }
 
@@ -180,27 +180,27 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/clients",
         "/config",
-        "/clients/",
+        "/products",
         "/orders/",
-        "/products/",
         "/sales/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/clients": {
+      "filePath": "clients.tsx"
+    },
     "/config": {
       "filePath": "config.tsx"
     },
-    "/clients/": {
-      "filePath": "clients/index.tsx"
+    "/products": {
+      "filePath": "products.tsx"
     },
     "/orders/": {
       "filePath": "orders/index.tsx"
-    },
-    "/products/": {
-      "filePath": "products/index.tsx"
     },
     "/sales/": {
       "filePath": "sales/index.tsx"
