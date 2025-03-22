@@ -1,3 +1,6 @@
+import { type ProductCategory, productSchema } from './product.model';
+import { insertProduct } from './product.handlers';
+import { FieldInfo } from '@/components/field-info';
 import { Label, Input, Button } from '@/components/ui';
 import {
   Select,
@@ -15,39 +18,39 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { type ProductCategory, productFormSchema } from './products.model';
 import { useForm } from '@tanstack/react-form';
 import { Plus } from 'lucide-react';
 
-interface MaterialFormProps {
+interface AddProductProps {
   categories: ProductCategory[];
 }
 
-export function ProductsForm({ categories }: MaterialFormProps) {
+export function AddProduct({ categories }: AddProductProps) {
   const form = useForm({
     defaultValues: {
       name: '',
-      category: '',
+      category_id: '',
       purchase_price: 0,
       sales_price: 0,
       weight: 0,
       barcode: '',
     },
     validators: {
-      onSubmit: productFormSchema,
+      onSubmit: productSchema,
     },
-    onSubmit: async ({ value }) => {
-      console.log(value);
+    onSubmit: async ({ formApi, value }) => {
+      insertProduct(value);
+      formApi.reset();
     },
   });
 
-  const addMaterial = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
     form.handleSubmit();
   };
 
-  const cancel = (_: React.MouseEvent) => {
+  const cancel = () => {
     form.reset();
   };
 
@@ -59,16 +62,21 @@ export function ProductsForm({ categories }: MaterialFormProps) {
           <span>Añadir producto</span>
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent
+        className="overflow-y-auto"
+        aria-describedby="Formulario para agregar un nuevo producto"
+      >
         <SheetHeader>
           <SheetTitle className="text-3xl font-medium pb-8">Añadir Producto</SheetTitle>
         </SheetHeader>
-        <form className="space-y-8 px-4 h-full" onSubmit={addMaterial}>
+        <form className="space-y-8 px-4 h-full" onSubmit={handleSubmit}>
           <form.Field
             name="name"
             children={(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Producto</Label>
+              <div>
+                <Label className="pb-2" htmlFor={field.name}>
+                  Producto
+                </Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -78,20 +86,28 @@ export function ProductsForm({ categories }: MaterialFormProps) {
                   placeholder="Ingresa el nombre del producto"
                   autoComplete="off"
                 />
+                <FieldInfo field={field} />
               </div>
             )}
           />
           <form.Field
-            name="category"
+            name="category_id"
             children={(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Categoria</Label>
+              <div>
+                <Label className="pb-2" htmlFor={field.name}>
+                  Categoria
+                </Label>
                 <Select
                   name={field.name}
-                  onValueChange={field.handleChange}
-                  defaultValue={field.state.value}
+                  value={field.state.value}
+                  onValueChange={(value) => {
+                    field.handleChange(value);
+                  }}
+                  onOpenChange={(isOpen) => {
+                    if (!isOpen) field.handleBlur();
+                  }}
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger id={field.name} className="w-full">
                     <SelectValue placeholder="Selecciona una categoría" />
                   </SelectTrigger>
                   <SelectContent>
@@ -102,14 +118,17 @@ export function ProductsForm({ categories }: MaterialFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
+                <FieldInfo field={field} />
               </div>
             )}
           />
           <form.Field
             name="purchase_price"
             children={(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Precio de Compra</Label>
+              <div>
+                <Label className="pb-2" htmlFor={field.name}>
+                  Precio de Compra
+                </Label>
                 <Input
                   id={field.name}
                   type="number"
@@ -121,14 +140,17 @@ export function ProductsForm({ categories }: MaterialFormProps) {
                   min="0"
                   autoComplete="off"
                 />
+                <FieldInfo field={field} />
               </div>
             )}
           />
           <form.Field
             name="sales_price"
             children={(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Precio de Venta</Label>
+              <div>
+                <Label className="pb-2" htmlFor={field.name}>
+                  Precio de Venta
+                </Label>
                 <Input
                   id={field.name}
                   type="number"
@@ -140,14 +162,17 @@ export function ProductsForm({ categories }: MaterialFormProps) {
                   min="0"
                   autoComplete="off"
                 />
+                <FieldInfo field={field} />
               </div>
             )}
           />
           <form.Field
             name="weight"
             children={(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Peso (kg)</Label>
+              <div>
+                <Label className="pb-2" htmlFor={field.name}>
+                  Peso (kg)
+                </Label>
                 <Input
                   id={field.name}
                   type="number"
@@ -159,14 +184,17 @@ export function ProductsForm({ categories }: MaterialFormProps) {
                   min="0"
                   autoComplete="off"
                 />
+                <FieldInfo field={field} />
               </div>
             )}
           />
           <form.Field
             name="barcode"
             children={(field) => (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Código de barras</Label>
+              <div>
+                <Label className="pb-2" htmlFor={field.name}>
+                  Código de barras
+                </Label>
                 <Input
                   id={field.name}
                   type="text"
@@ -177,6 +205,7 @@ export function ProductsForm({ categories }: MaterialFormProps) {
                   placeholder="Ingresa el código de barras"
                   autoComplete="off"
                 />
+                <FieldInfo field={field} />
               </div>
             )}
           />
