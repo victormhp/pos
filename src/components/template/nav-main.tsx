@@ -1,4 +1,3 @@
-import { type LucideIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -7,33 +6,52 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Link } from '@tanstack/react-router';
+import { Home, List, Package, ShoppingCart, UserRound } from 'lucide-react';
 
-interface NavItem {
-  title: string;
-  url: string;
-  icon: LucideIcon;
-  isActive?: boolean;
-}
+export function NavMain() {
+  const sections = [
+    {
+      title: 'Inicio',
+      url: '/',
+      icon: Home,
+      isActive: true,
+    },
+    {
+      title: 'Ventas',
+      url: '/sales',
+      icon: ShoppingCart,
+    },
+    {
+      title: 'Pedidos',
+      url: '/orders',
+      icon: List,
+    },
+    {
+      title: 'Productos',
+      url: '/products',
+      icon: Package,
+    },
+    {
+      title: 'Clientes',
+      url: '/clients',
+      icon: UserRound,
+    },
+  ];
 
-interface NavMainProps {
-  items: NavItem[];
-}
-
-export function NavMain({ items }: NavMainProps) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Secciones</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild tooltip={item.title}>
+        {sections.map((s) => (
+          <SidebarMenuItem key={s.title}>
+            <SidebarMenuButton asChild tooltip={s.title}>
               <Link
-                to={item.url}
+                to={s.url}
                 className="hover:bg-sidebar-border"
                 activeProps={{ className: 'bg-sidebar-border hover:bg-none' }}
               >
-                <item.icon />
-                <span>{item.title}</span>
+                <s.icon />
+                <span>{s.title}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

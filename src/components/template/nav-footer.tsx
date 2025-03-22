@@ -1,4 +1,3 @@
-import { ChevronsUpDown, LogOut, Moon, Settings, Sun } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from '@/components/theme-provider.tsx';
 import {
@@ -14,9 +13,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '@/components/ui/sidebar';
 import { Link } from '@tanstack/react-router';
+import { ChevronsUpDown, LogOut, Moon, Settings, Sun } from 'lucide-react';
 
 export function NavFooter({
   user,
@@ -28,7 +27,6 @@ export function NavFooter({
   };
 }) {
   const { setTheme } = useTheme();
-  const { isMobile } = useSidebar();
 
   return (
     <SidebarMenu>
@@ -52,7 +50,7 @@ export function NavFooter({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? 'top' : 'right'}
+            side={'right'}
             align="end"
             sideOffset={4}
           >
